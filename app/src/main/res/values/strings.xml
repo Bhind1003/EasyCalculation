@@ -42,5 +42,5 @@
     <string name="password">password</string>
     <string name="login">login</string>
     <string name="register">register</string>
-    <string name="my_localhost_ip" translatable="false">192.168.43.21</string>
+    <string name="input_name">input name</string>
 </resources>

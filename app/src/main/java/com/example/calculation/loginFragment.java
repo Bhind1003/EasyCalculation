@@ -38,13 +38,14 @@ public class loginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity()).get(loginViewModel.class);
         // TODO: Use the ViewModel
-        Button ok = getView().findViewById(R.id.button12);
+        Button Login = getView().findViewById(R.id.button12);
         Button Register = getView().findViewById(R.id.button13);
         EditText email = getView().findViewById(R.id.email);
         EditText password = getView().findViewById(R.id.password);
+        email.setText(mViewModel.getEmail().getValue());
         NavController controller = Navigation.findNavController(getView());
 
-        ok.setOnClickListener(v -> {
+        Login.setOnClickListener(v -> {
             String text1 = email.getText().toString();
 //            if (text1.trim().compareTo("")>0){
 //                Toast.makeText(getContext(), "请输入邮箱！", Toast.LENGTH_SHORT).show();
@@ -65,17 +66,18 @@ public class loginFragment extends Fragment {
                                 Toast.makeText(getContext(), "密码错误！", Toast.LENGTH_SHORT).show();
                                 break;
                             case "-1":
-                                Toast.makeText(getContext(), "信息出错，该用户不存在！", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "信息出错，该用户不存在,请先注册！", Toast.LENGTH_SHORT).show();
                                 break;
                             case "1":
                                 Toast.makeText(getContext(), "登录成功！", Toast.LENGTH_SHORT).show();
+                                mViewModel.setIsLogin(true);
                                 controller.navigate(R.id.action_loginFragment_to_titleFragment);
                                 break;
                         }
-//                        Toast.makeText(getContext(), ""+response, Toast.LENGTH_SHORT).show();
                     });
         });
         Register.setOnClickListener(v -> {
+            mViewModel.setEmail(email.getText().toString());
             controller.navigate(R.id.action_loginFragment_to_registerFragment);
         });
     }

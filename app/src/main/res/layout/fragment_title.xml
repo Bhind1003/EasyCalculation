@@ -54,7 +54,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/title_image_info"
-            android:src="@drawable/titleimage"
+            android:src="@drawable/ic_baseline_calculate_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintEnd_toStartOf="@+id/guideline8"

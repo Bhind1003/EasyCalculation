@@ -1,16 +1,22 @@
 package com.example.calculation;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
+import com.example.calculation.util.NetUtils;
+import com.example.calculation.util.synNetUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,8 +77,44 @@ public class RegisterFragment extends Fragment {
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(requireActivity()).get(loginViewModel.class);
-        Button back=getView().findViewById(R.id.buttonBack);
-        back.setOnClickListener(v->{
+        EditText emailName = getView().findViewById(R.id.emailName);
+        EditText PersonName = getView().findViewById(R.id.PersonName);
+        EditText Password1 = getView().findViewById(R.id.Password1);
+        EditText Password2 = getView().findViewById(R.id.Password2);
+        Log.e("1414", "onActivityCreated: " + mViewModel.getEmail().getValue());
+        emailName.setText(mViewModel.getEmail().getValue());
+        Button back = getView().findViewById(R.id.buttonBack);
+        Button buttonAdd = getView().findViewById(R.id.buttonAdd);
+        buttonAdd.setOnClickListener(v -> {
+            String name = PersonName.getText().toString();
+            String email = emailName.getText().toString();
+            String password1 = Password1.getText().toString();
+            String password2 = Password2.getText().toString();
+            if (password1.compareTo(password2) == 0) {
+                synNetUtils.post(NetUtils.myIp + "addUser",
+                        "{\n" +
+                                "  \"email\": \"" + email + "\",\n" +
+                                "  \"name\": \"" + name + "\",\n" +
+                                "  \"password\": \"" + password1 + "\"\n" +
+                                "}", response -> {
+                            Log.d("1414", response);
+                            switch (response) {
+                                case "1":
+                                    NavController controller = Navigation.findNavController(v);
+                                    controller.navigate(R.id.action_registerFragment_to_loginFragment);
+                                    mViewModel.setEmail(email);
+                                    Toast.makeText(getContext(), "成功注册！\n返回登录！", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case "0":
+                                    Toast.makeText(getContext(), "无法注册，邮箱可能重复！请检查重试", Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        });
+            } else {
+                Toast.makeText(getContext(), "两次输入的密码不相同，请重试！", Toast.LENGTH_SHORT).show();
+            }
+        });
+        back.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_registerFragment_to_loginFragment);
         });

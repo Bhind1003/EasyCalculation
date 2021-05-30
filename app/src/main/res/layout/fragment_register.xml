@@ -23,7 +23,7 @@
         tools:text="test@qq.com" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/Password1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -41,10 +41,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/register"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toEndOf="@+id/Password1"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword2" />
+        app:layout_constraintStart_toStartOf="@+id/Password1"
+        app:layout_constraintTop_toBottomOf="@+id/Password2" />
 
     <Button
         android:id="@+id/buttonBack"
@@ -57,15 +57,29 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonAdd" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/Password2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toEndOf="@+id/Password1"
+        app:layout_constraintStart_toStartOf="@+id/Password1"
+        app:layout_constraintTop_toBottomOf="@+id/Password1"
         tools:text="123456" />
+
+    <EditText
+        android:id="@+id/PersonName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:hint="@string/input_name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/emailName"
+        app:layout_constraintEnd_toEndOf="@+id/emailName"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/emailName"
+        tools:text="陈雪梅" />
 </androidx.constraintlayout.widget.ConstraintLayout>
