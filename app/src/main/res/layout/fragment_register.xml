@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="112dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="@string/email"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="@string/password"
+        android:hint="重复密码"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/Password1"
         app:layout_constraintStart_toStartOf="@+id/Password1"
@@ -82,4 +82,16 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="@+id/emailName"
         tools:text="陈雪梅" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:text="注册账号"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@+id/PersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

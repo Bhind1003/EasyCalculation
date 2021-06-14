@@ -16,7 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.calculation.util.NetUtils;
-import com.example.calculation.util.synNetUtils;
+import com.example.calculation.util.SynNetUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,7 +33,7 @@ public class RegisterFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private loginViewModel mViewModel;
+    private LoginViewModel mViewModel;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -76,7 +76,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(requireActivity()).get(loginViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
         EditText emailName = getView().findViewById(R.id.emailName);
         EditText PersonName = getView().findViewById(R.id.PersonName);
         EditText Password1 = getView().findViewById(R.id.Password1);
@@ -91,7 +91,7 @@ public class RegisterFragment extends Fragment {
             String password1 = Password1.getText().toString();
             String password2 = Password2.getText().toString();
             if (password1.compareTo(password2) == 0) {
-                synNetUtils.post(NetUtils.myIp + "addUser",
+                SynNetUtils.post(NetUtils.myIp + "addUser",
                         "{\n" +
                                 "  \"email\": \"" + email + "\",\n" +
                                 "  \"name\": \"" + name + "\",\n" +

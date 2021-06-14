@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/registerFragment">
+    app:startDestination="@id/titleFragment">
 
     <fragment
         android:id="@+id/titleFragment"
@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_titleFragment_to_questionFragment"
             app:destination="@id/questionFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_listRecordsFragment"
+            app:destination="@id/listRecordsFragment" />
     </fragment>
     <fragment
         android:id="@+id/questionFragment"
@@ -46,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.calculation.loginFragment"
+        android:name="com.example.calculation.LoginFragment"
         android:label="登录"
         tools:layout="@layout/login_fragment" >
         <action
@@ -65,4 +68,9 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/listRecordsFragment"
+        android:name="com.example.calculation.ListRecordsFragment"
+        android:label="历史记录"
+        tools:layout="@layout/fragment_list_records" />
 </navigation>

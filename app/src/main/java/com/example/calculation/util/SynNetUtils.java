@@ -3,7 +3,7 @@ package com.example.calculation.util;
 import android.os.Handler;
 import android.util.Log;
 
-public class synNetUtils {
+public class SynNetUtils {
     public static void get(final String url, final Callback callback) {
         final Handler handler = new Handler();
         new Thread(() -> {

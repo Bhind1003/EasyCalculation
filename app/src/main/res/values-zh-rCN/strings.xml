@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">轻松算数</string>
+    <string name="app_name">算数挑战</string>
     <string name="answer_corrrect_message">回答正确！请继续！</string>
     <string name="buttonSubmit">确定</string>
     <string name="button_back_to_title">返回</string>
@@ -12,7 +12,7 @@
     <string name="lose_score_message">你的得分:%d</string>
     <string name="quit_dialog_title">确定离开？</string>
     <string name="title_button_messsage">开始</string>
-    <string name="title_message">轻松算数</string>
+    <string name="title_message">算数挑战</string>
     <string name="win_message">挑战成功！</string>
     <string name="win_score_message">创造新记录:%d</string>
     <string name="lose_message">挑战失败</string>
@@ -26,4 +26,5 @@
     <string name="login">登录</string>
     <string name="register">注册</string>
     <string name="input_name">请输入用户名</string>
+    <string name="enter">本地模式体验</string>
 </resources>

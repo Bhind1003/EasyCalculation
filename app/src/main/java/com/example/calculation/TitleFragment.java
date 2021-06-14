@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -43,9 +44,24 @@ public class TitleFragment extends Fragment {
             myViewModel.getCurrentScore().setValue(0);
             myViewModel.generator();
         });
+
         return binding.getRoot();
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_title, container, false);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        TextView high = getView().findViewById(R.id.textViewHigh);
+        high.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_titleFragment_to_listRecordsFragment);
+        });
+        TextView history=getView().findViewById(R.id.textViewHistory);
+        history.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_titleFragment_to_listRecordsFragment);
+        });
+    }
 }

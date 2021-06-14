@@ -2,6 +2,7 @@ package com.example.calculation;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateViewModelFactory;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.calculation.databinding.FragmentQuestionBinding;
+import com.example.calculation.util.NetUtils;
+import com.example.calculation.util.SynNetUtils;
 
 
 /**
@@ -23,15 +27,17 @@ import com.example.calculation.databinding.FragmentQuestionBinding;
 public class QuestionFragment extends Fragment {
 
 
+    MyViewModel myViewModel;
+    LoginViewModel loginViewModel;
+
     public QuestionFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final MyViewModel myViewModel;
+
         myViewModel = ViewModelProviders.of(requireActivity(), new SavedStateViewModelFactory(requireActivity().getApplication(), requireActivity())).get(MyViewModel.class);
         //myViewModel.generator();
         //myViewModel.getCurrentScore().setValue(0);
@@ -99,34 +105,45 @@ public class QuestionFragment extends Fragment {
         binding.button9.setOnClickListener(listener);
         binding.buttonClear.setOnClickListener(listener);
 
-        binding.buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @SuppressWarnings("ConstantConditions")
-            @Override
-            public void onClick(View v) {
-                if (builder.length() == 0) {
-                    builder.append("-1");
-                }
-                if (Integer.valueOf(builder.toString()).intValue() == myViewModel.getAnswer().getValue()) {
-                    myViewModel.answerCorrect();
-                    builder.setLength(0);
-                    binding.textView9.setText(R.string.answer_corrrect_message);
-                    //builder.append(getString(R.string.answer_corrrect_message));
-                } else {
-                    NavController controller = Navigation.findNavController(v);
-                    if (myViewModel.win_flag) {
-                        controller.navigate(R.id.action_questionFragment_to_winFragment);
-                        myViewModel.win_flag = false;
-                        myViewModel.save();
-                    } else {
-                        controller.navigate(R.id.action_questionFragment_to_loseFragment);
-                    }
-                }
-
+        binding.buttonSubmit.setOnClickListener(v -> {
+            if (builder.length() == 0) {
+                builder.append("-1");
             }
+            if (Integer.valueOf(builder.toString()).intValue() == myViewModel.getAnswer().getValue()) {
+                myViewModel.answerCorrect();
+                builder.setLength(0);
+                binding.textView9.setText(R.string.answer_corrrect_message);
+                //builder.append(getString(R.string.answer_corrrect_message));
+            } else {
+                NavController controller = Navigation.findNavController(v);
+                uploadInfo();//备份做题记录到服务器
+                if (myViewModel.win_flag) {
+                    controller.navigate(R.id.action_questionFragment_to_winFragment);
+                    myViewModel.win_flag = false;
+                    myViewModel.save();
+                } else {
+                    controller.navigate(R.id.action_questionFragment_to_loseFragment);
+                }
+            }
+
         });
         return binding.getRoot();
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_question, container, false);
     }
 
+    public void uploadInfo() {
+        loginViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
+        if (loginViewModel.getEmail().getValue() == null) {
+            loginViewModel.setEmail("test@qq.com");
+        }
+        Log.i("1414", "uploadInfo: CurrentScore=" + myViewModel.getCurrentScore().getValue());
+        Log.i("1414", "uploadInfo: Email=" + loginViewModel.getEmail().getValue());
+        SynNetUtils.post(NetUtils.myIp + "record/addRecord", "{\n" +
+                "  \"email\": \"" + loginViewModel.getEmail().getValue() + "\",\n" +
+                "  \"score\": \"" + myViewModel.getCurrentScore().getValue() + "\"\n" +
+                "}", response -> {
+            Log.i("1414", "response=" + response);
+        });
+    }
 }
