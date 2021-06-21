@@ -61,7 +61,7 @@ public class LoginFragment extends Fragment {
                             "  \"email\": \"" + text1 + "\",\n" +
                             "  \"password\": \"" + text2 + "\"\n" +
                             "}", response -> {
-                        Log.d("1414", "SynNetUtils.post->response="+response);
+                        Log.d("1414", "SynNetUtils.post->response=" + response);
                         switch (response) {
                             case "0":
                                 Toast.makeText(getContext(), "密码错误！", Toast.LENGTH_SHORT).show();
@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
             mViewModel.setEmail(email.getText().toString());
             controller.navigate(R.id.action_loginFragment_to_registerFragment);
         });
-        enter.setOnClickListener(v->{
+        enter.setOnClickListener(v -> {
             controller.navigate(R.id.action_loginFragment_to_titleFragment);
         });
     }

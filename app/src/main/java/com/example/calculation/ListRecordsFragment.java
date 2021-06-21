@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.calculation.util.NetUtils;
 import com.example.calculation.util.SynNetUtils;
@@ -31,6 +33,7 @@ public class ListRecordsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private LoginViewModel mViewModel;
 
     public ListRecordsFragment() {
         // Required empty public constructor
@@ -73,25 +76,34 @@ public class ListRecordsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        mViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
         TextView list = getView().findViewById(R.id.records);
         StringBuilder ans = new StringBuilder();//"时间\t\t用户邮箱\t\t用户名\t\t记录"
-        ans.append("查询到的历史记录如下：\n");
-        SynNetUtils.get(NetUtils.myIp + "record/listRecords?num=150", response -> {
-            Log.v("1414", "ListRecordsFragment->onStart:response=" + response);
-            try {
-                JSONArray jsonArray = new JSONArray(response);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+        ans.append("查询到的记录如下：\n\n");
+        try {
+            SynNetUtils.get(NetUtils.myIp + "record/listRecords?num=" + mViewModel.getKey().getValue(), response -> {
+                Log.v("1414", "ListRecordsFragment->onStart:response=" + response);
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
 //                    Log.v("1414", "jsonArray->jsonObject::" + jsonObject.getString("time")
 //                            + jsonObject.getString("email") + jsonObject.getString("name")
 //                            + jsonObject.getString("score"));
-                    ans.append("在时间:").append(jsonObject.getString("time")).append("\n\t\t\t\t用户:")
-                            .append(jsonObject.getString("name")).append("挑战的分数为:").append(jsonObject.getInt("score")).append("\n");
+                        ans.append("时间:").append(jsonObject.getString("time")).append("\n        用户:  '")
+                                .append(jsonObject.getString("name")).append("'  挑战的分数记录:\t")
+                                .append(jsonObject.getInt("score")).append("\n");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            list.setText(ans);
-        });
+                list.setText(ans);
+            });
+        } catch (Exception e) {
+            list.setText("查询失败！");
+            e.printStackTrace();
+        } finally {
+            Toast.makeText(getContext(), "查询记录", Toast.LENGTH_SHORT).show();
+        }
     }
 }

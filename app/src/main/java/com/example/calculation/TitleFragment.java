@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.SavedStateViewModelFactory;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -49,19 +50,30 @@ public class TitleFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_title, container, false);
     }
-
+    private LoginViewModel mViewModel;
     @Override
     public void onStart() {
         super.onStart();
+        mViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
+        TextView user=getView().findViewById(R.id.textUser);
+        user.setOnClickListener(v->{
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_titleFragment_to_loginFragment);
+        });
         TextView high = getView().findViewById(R.id.textViewHigh);
         high.setOnClickListener(v -> {
+            mViewModel.setKey(2);
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_titleFragment_to_listRecordsFragment);
         });
         TextView history=getView().findViewById(R.id.textViewHistory);
         history.setOnClickListener(v -> {
+            mViewModel.setKey(1);
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_titleFragment_to_listRecordsFragment);
         });
+        if (mViewModel.getIsLogin().getValue()){
+            user.setText(mViewModel.getEmail().getValue());
+        }
     }
 }

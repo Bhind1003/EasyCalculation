@@ -7,7 +7,16 @@ import androidx.lifecycle.ViewModel;
 public class LoginViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private final MutableLiveData<String> email = new MutableLiveData<String>();
+    private final MutableLiveData<Integer> key = new MutableLiveData<>(1);
     private final MutableLiveData<Boolean> isLogin = new MutableLiveData<Boolean>(false);
+
+    public MutableLiveData<Integer> getKey() {
+        return key;
+    }
+
+    public void setKey(int num) {
+        key.setValue(num);
+    }
 
     public MutableLiveData<Boolean> getIsLogin() {
         return isLogin;
