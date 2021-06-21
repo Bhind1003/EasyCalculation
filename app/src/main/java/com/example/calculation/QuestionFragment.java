@@ -35,8 +35,7 @@ public class QuestionFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         myViewModel = ViewModelProviders.of(requireActivity(), new SavedStateViewModelFactory(requireActivity().getApplication(), requireActivity())).get(MyViewModel.class);
         //myViewModel.generator();
@@ -46,51 +45,48 @@ public class QuestionFragment extends Fragment {
         binding.setData(myViewModel);
         binding.setLifecycleOwner(requireActivity());
         final StringBuilder builder = new StringBuilder();
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()) {
-                    case R.id.button0:
-                        builder.append("0");
-                        break;
-                    case R.id.button1:
-                        builder.append("1");
-                        break;
-                    case R.id.button2:
-                        builder.append("2");
-                        break;
-                    case R.id.button3:
-                        builder.append("3");
-                        break;
-                    case R.id.button4:
-                        builder.append("4");
-                        break;
-                    case R.id.button5:
-                        builder.append("5");
-                        break;
-                    case R.id.button6:
-                        builder.append("6");
-                        break;
-                    case R.id.button7:
-                        builder.append("7");
-                        break;
-                    case R.id.button8:
-                        builder.append("8");
-                        break;
-                    case R.id.button9:
-                        builder.append("9");
-                        break;
-                    case R.id.buttonClear:
-                        builder.setLength(0);
-                        break;
-                }
-                if (builder.length() == 0) {
-                    binding.textView9.setText(getString(R.string.input_indicator));
-                } else {
-                    binding.textView9.setText(getString(R.string.input_indicator) + builder.toString());
-                }
-
+        View.OnClickListener listener = v -> {
+            switch (v.getId()) {
+                case R.id.button0:
+                    builder.append("0");
+                    break;
+                case R.id.button1:
+                    builder.append("1");
+                    break;
+                case R.id.button2:
+                    builder.append("2");
+                    break;
+                case R.id.button3:
+                    builder.append("3");
+                    break;
+                case R.id.button4:
+                    builder.append("4");
+                    break;
+                case R.id.button5:
+                    builder.append("5");
+                    break;
+                case R.id.button6:
+                    builder.append("6");
+                    break;
+                case R.id.button7:
+                    builder.append("7");
+                    break;
+                case R.id.button8:
+                    builder.append("8");
+                    break;
+                case R.id.button9:
+                    builder.append("9");
+                    break;
+                case R.id.buttonClear:
+                    builder.setLength(0);
+                    break;
             }
+            if (builder.length() == 0) {
+                binding.textView9.setText(getString(R.string.input_indicator));
+            } else {
+                binding.textView9.setText(getString(R.string.input_indicator) + builder.toString());
+            }
+
         };
 
         binding.button0.setOnClickListener(listener);
@@ -137,8 +133,8 @@ public class QuestionFragment extends Fragment {
         if (loginViewModel.getEmail().getValue() == null) {
             loginViewModel.setEmail("test@qq.com");
         }
-        Log.i("1414", "uploadInfo: CurrentScore=" + myViewModel.getCurrentScore().getValue());
-        Log.i("1414", "uploadInfo: Email=" + loginViewModel.getEmail().getValue());
+//        Log.i("1414", "uploadInfo: CurrentScore=" + myViewModel.getCurrentScore().getValue());
+//        Log.i("1414", "uploadInfo: Email=" + loginViewModel.getEmail().getValue());
         SynNetUtils.post(NetUtils.myIp + "record/addRecord", "{\n" +
                 "  \"email\": \"" + loginViewModel.getEmail().getValue() + "\",\n" +
                 "  \"score\": \"" + myViewModel.getCurrentScore().getValue() + "\"\n" +

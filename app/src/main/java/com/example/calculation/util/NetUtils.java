@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class NetUtils {
-    public static final String myIp="http://47.101.187.49:8888/";
+    public static final String myIp="http://47.101.187.49:8888/";//192.168.52.21
     @Nullable
     public static String post(String url, String content) {
         HttpURLConnection conn = null;

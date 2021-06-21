@@ -25,14 +25,15 @@ import com.example.calculation.databinding.FragmentTitleBinding;
 public class TitleFragment extends Fragment {
 
 
+    private LoginViewModel mViewModel;
+
+
     public TitleFragment() {
         // Required empty public constructor
     }
 
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final MyViewModel myViewModel;
         myViewModel = ViewModelProviders.of(requireActivity(), new SavedStateViewModelFactory(requireActivity().getApplication(), requireActivity())).get(MyViewModel.class);
         FragmentTitleBinding binding;
@@ -50,13 +51,13 @@ public class TitleFragment extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_title, container, false);
     }
-    private LoginViewModel mViewModel;
+
     @Override
     public void onStart() {
         super.onStart();
         mViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
-        TextView user=getView().findViewById(R.id.textUser);
-        user.setOnClickListener(v->{
+        TextView user = getView().findViewById(R.id.textUser);
+        user.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_titleFragment_to_loginFragment);
         });
@@ -66,13 +67,18 @@ public class TitleFragment extends Fragment {
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_titleFragment_to_listRecordsFragment);
         });
-        TextView history=getView().findViewById(R.id.textViewHistory);
+        TextView history = getView().findViewById(R.id.textViewHistory);
         history.setOnClickListener(v -> {
+            NavController controller = Navigation.findNavController(v);
+            controller.navigate(R.id.action_titleFragment_to_userRecordsFragment);
+        });
+        TextView title = getView().findViewById(R.id.textTitle);
+        title.setOnClickListener(v -> {
             mViewModel.setKey(1);
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_titleFragment_to_listRecordsFragment);
         });
-        if (mViewModel.getIsLogin().getValue()){
+        if (mViewModel.getIsLogin().getValue()) {
             user.setText(mViewModel.getEmail().getValue());
         }
     }

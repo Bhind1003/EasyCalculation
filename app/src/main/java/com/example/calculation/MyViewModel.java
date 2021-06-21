@@ -60,8 +60,8 @@ public class MyViewModel extends AndroidViewModel {
         return handle.getLiveData(KEY_ANSWER);
     }
 
-    void generator() {
-        int LEVEL = 20;
+    void generator() {//出题的关健模块，数据自动绑定到页面
+        int LEVEL = 20;//挑战的随机数范围
         Random random = new Random();
         int x, y;
         x = random.nextInt(LEVEL) + 1;
