@@ -18,11 +18,6 @@ import androidx.navigation.Navigation;
 import com.example.calculation.util.NetUtils;
 import com.example.calculation.util.SynNetUtils;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RegisterFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -39,14 +34,6 @@ public class RegisterFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RegisterFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static RegisterFragment newInstance(String param1, String param2) {
         RegisterFragment fragment = new RegisterFragment();
@@ -74,14 +61,13 @@ public class RegisterFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onStart() {
+        super.onStart();
         mViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
         EditText emailName = getView().findViewById(R.id.emailName);
         EditText PersonName = getView().findViewById(R.id.PersonName);
         EditText Password1 = getView().findViewById(R.id.Password1);
         EditText Password2 = getView().findViewById(R.id.Password2);
-        Log.e("1414", "onActivityCreated: " + mViewModel.getEmail().getValue());
         emailName.setText(mViewModel.getEmail().getValue());
         Button back = getView().findViewById(R.id.buttonBack);
         Button buttonAdd = getView().findViewById(R.id.buttonAdd);
@@ -119,4 +105,5 @@ public class RegisterFragment extends Fragment {
             controller.navigate(R.id.action_registerFragment_to_loginFragment);
         });
     }
+
 }

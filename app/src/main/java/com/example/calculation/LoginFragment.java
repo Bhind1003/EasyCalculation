@@ -34,13 +34,13 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onStart() {
+        super.onStart();
         mViewModel = new ViewModelProvider(requireActivity()).get(LoginViewModel.class);
         // TODO: Use the ViewModel
         Button Login = getView().findViewById(R.id.button12);
         Button Register = getView().findViewById(R.id.button13);
-        Button enter = getView().findViewById(R.id.enter);
+        Button Enter = getView().findViewById(R.id.enter);
         EditText email = getView().findViewById(R.id.email);
         EditText password = getView().findViewById(R.id.password);
         email.setText(mViewModel.getEmail().getValue());
@@ -48,13 +48,7 @@ public class LoginFragment extends Fragment {
 
         Login.setOnClickListener(v -> {
             String text1 = email.getText().toString();
-//            if (text1.trim().compareTo("")>0){
-//                Toast.makeText(getContext(), "请输入邮箱！", Toast.LENGTH_SHORT).show();
-//            }
             String text2 = password.getText().toString();
-//            if (text2.trim().compareTo("")>0){
-//                Toast.makeText(getContext(), "请输入密码！", Toast.LENGTH_SHORT).show();
-//            }
             Log.d("1414", "input:" + text1 + "    " + text2);
             SynNetUtils.post(NetUtils.myIp + "login",
                     "{\n" +
@@ -84,9 +78,8 @@ public class LoginFragment extends Fragment {
             mViewModel.setEmail(email.getText().toString());
             controller.navigate(R.id.action_loginFragment_to_registerFragment);
         });
-        enter.setOnClickListener(v -> {
+        Enter.setOnClickListener(v -> {
             controller.navigate(R.id.action_loginFragment_to_titleFragment);
         });
     }
-
 }

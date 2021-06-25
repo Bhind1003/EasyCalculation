@@ -18,11 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ListRecordsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ListRecordsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
@@ -39,14 +34,6 @@ public class ListRecordsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ListRecordsFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static ListRecordsFragment newInstance(String param1, String param2) {
         ListRecordsFragment fragment = new ListRecordsFragment();
@@ -87,9 +74,6 @@ public class ListRecordsFragment extends Fragment {
                     JSONArray jsonArray = new JSONArray(response);
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                    Log.v("1414", "jsonArray->jsonObject::" + jsonObject.getString("time")
-//                            + jsonObject.getString("email") + jsonObject.getString("name")
-//                            + jsonObject.getString("score"));
                         ans.append(" 时间:").append(jsonObject.getString("time")).append("\n        用户:  '")
                                 .append(jsonObject.getString("name")).append("'  挑战的分数为:\t")
                                 .append(jsonObject.getInt("score")).append("\n");

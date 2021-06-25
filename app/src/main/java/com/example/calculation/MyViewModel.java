@@ -20,8 +20,11 @@ public class MyViewModel extends AndroidViewModel {
     private static final String SAVE_SHP_DATA_NAME = "save_shp_data_name";
     private static final String KEY_CURRENT_SCORE = "key_current_score";
     private final SavedStateHandle handle;
+    private final MutableLiveData<Integer> questionLevel = new MutableLiveData<>(20);
     boolean win_flag = false;
-
+    public void setQuestionLevel(int num){
+        questionLevel.setValue(num);
+    }
     public MyViewModel(@NonNull Application application, SavedStateHandle handle) {
         super(application);
         if (!handle.contains(KEY_HIGH_SCORE)) {
@@ -61,7 +64,7 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     void generator() {//出题的关健模块，数据自动绑定到页面
-        int LEVEL = 20;//挑战的随机数范围
+        int LEVEL = questionLevel.getValue()>0?questionLevel.getValue():10;//挑战的随机数范围
         Random random = new Random();
         int x, y;
         x = random.nextInt(LEVEL) + 1;

@@ -2,6 +2,7 @@ package com.example.calculation;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,9 +41,12 @@ public class TitleFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_title, container, false);
         binding.setData(myViewModel);
         binding.setLifecycleOwner(requireActivity());
+        //进入答题界面
         binding.button.setOnClickListener(v -> {
             NavController controller = Navigation.findNavController(v);
             controller.navigate(R.id.action_titleFragment_to_questionFragment);
+            myViewModel.setQuestionLevel(Integer.parseInt(binding.editTextLevel.getText().toString()));
+//            Log.d("1414", "TitleFragment->onCreateView:="+binding.editTextLevel.getText().toString());
             myViewModel.getCurrentScore().setValue(0);
             myViewModel.generator();
         });

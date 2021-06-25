@@ -133,8 +133,6 @@ public class QuestionFragment extends Fragment {
         if (loginViewModel.getEmail().getValue() == null) {
             loginViewModel.setEmail("test@qq.com");
         }
-//        Log.i("1414", "uploadInfo: CurrentScore=" + myViewModel.getCurrentScore().getValue());
-//        Log.i("1414", "uploadInfo: Email=" + loginViewModel.getEmail().getValue());
         SynNetUtils.post(NetUtils.myIp + "record/addRecord", "{\n" +
                 "  \"email\": \"" + loginViewModel.getEmail().getValue() + "\",\n" +
                 "  \"score\": \"" + myViewModel.getCurrentScore().getValue() + "\"\n" +
