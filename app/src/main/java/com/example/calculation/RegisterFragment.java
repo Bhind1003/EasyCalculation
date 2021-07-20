@@ -77,7 +77,7 @@ public class RegisterFragment extends Fragment {
             String password1 = Password1.getText().toString();
             String password2 = Password2.getText().toString();
             if (password1.compareTo(password2) == 0) {
-                SynNetUtils.post(NetUtils.myIp + "addUser",
+                SynNetUtils.post(NetUtils.myIp + "user/addUser",
                         "{\n" +
                                 "  \"email\": \"" + email + "\",\n" +
                                 "  \"name\": \"" + name + "\",\n" +

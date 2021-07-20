@@ -50,7 +50,7 @@ public class LoginFragment extends Fragment {
             String text1 = email.getText().toString();
             String text2 = password.getText().toString();
             Log.d("1414", "input:" + text1 + "    " + text2);
-            SynNetUtils.post(NetUtils.myIp + "login",
+            SynNetUtils.post(NetUtils.myIp + "user/login",
                     "{\n" +
                             "  \"email\": \"" + text1 + "\",\n" +
                             "  \"password\": \"" + text2 + "\"\n" +

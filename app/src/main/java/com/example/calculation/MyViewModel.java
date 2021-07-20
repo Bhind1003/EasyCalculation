@@ -22,9 +22,7 @@ public class MyViewModel extends AndroidViewModel {
     private final SavedStateHandle handle;
     private final MutableLiveData<Integer> questionLevel = new MutableLiveData<>(20);
     boolean win_flag = false;
-    public void setQuestionLevel(int num){
-        questionLevel.setValue(num);
-    }
+
     public MyViewModel(@NonNull Application application, SavedStateHandle handle) {
         super(application);
         if (!handle.contains(KEY_HIGH_SCORE)) {
@@ -37,6 +35,10 @@ public class MyViewModel extends AndroidViewModel {
             handle.set(KEY_CURRENT_SCORE, 0);
         }
         this.handle = handle;
+    }
+
+    public void setQuestionLevel(int num) {
+        questionLevel.setValue(num);
     }
 
     public MutableLiveData<Integer> getLeftNumber() {
@@ -64,12 +66,12 @@ public class MyViewModel extends AndroidViewModel {
     }
 
     void generator() {//出题的关健模块，数据自动绑定到页面
-        int LEVEL = questionLevel.getValue()>0?questionLevel.getValue():10;//挑战的随机数范围
+        int LEVEL = questionLevel.getValue() > 0 ? questionLevel.getValue() : 10;//挑战的随机数范围
         Random random = new Random();
         int x, y;
         x = random.nextInt(LEVEL) + 1;
         y = random.nextInt(LEVEL) + 1;
-        if (x % 2 == 0) {
+        if (x % 3 == 0) {
             getOperator().setValue("+");
             if (x > y) {
                 getAnswer().setValue(x);
@@ -81,7 +83,7 @@ public class MyViewModel extends AndroidViewModel {
                 getRightNumber().setValue(y - x);
             }
 
-        } else {
+        } else if(x % 3 == 1){
             getOperator().setValue("-");
             if (x > y) {
                 getAnswer().setValue(x - y);
@@ -89,6 +91,17 @@ public class MyViewModel extends AndroidViewModel {
                 getRightNumber().setValue(y);
             } else {
                 getAnswer().setValue(y - x);
+                getLeftNumber().setValue(y);
+                getRightNumber().setValue(x);
+            }
+        }else {
+            getOperator().setValue("x");
+            if (x < y) {
+                getAnswer().setValue(x * y);
+                getLeftNumber().setValue(x);
+                getRightNumber().setValue(y);
+            } else {
+                getAnswer().setValue(y * x);
                 getLeftNumber().setValue(y);
                 getRightNumber().setValue(x);
             }
